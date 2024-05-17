@@ -1,16 +1,18 @@
 import { Entity } from "@/shared/domain/entitites/entity"
+import { UserValidator, UserValidatorFactory } from "../validators/user.validator"
 
 export type UserProps = {
     name : string
     email: string
     password: string
-    CreateAt?: Date
+    createdAt?: Date
 }
 
 export class UserEntity extends Entity<UserProps>{
     constructor(public readonly props: UserProps, id?: string){
+        UserEntity.validate(props)
         super(props, id)
-        this.props.CreateAt = this.props.CreateAt ?? new Date()
+        this.props.createdAt = this.props.createdAt ?? new Date()
     }
     get name(): string{
         return this.props.name
@@ -31,15 +33,22 @@ export class UserEntity extends Entity<UserProps>{
         this.props.password = value
     }
 
-    get CreateAt(): Date {
-        return this.props.CreateAt
+    get createdAt(): Date {
+        return this.props.createdAt
     }
 
     update(value: string): void{
+        UserEntity.validate({...this.props, name: value})
         this.name = value
     }
 
     updatePassword(value: string): void{
+        UserEntity.validate({...this.props, password: value})
         this.password = value
+    }
+
+    static validate(props: UserProps) {
+        const validator = UserValidatorFactory.create()
+        validator.validate(props)
     }
 }
