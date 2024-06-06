@@ -6,15 +6,16 @@ describe('UserEntity Unit Test', () =>{
     let props: UserProps
     let sut: UserEntity
     beforeEach(() => {
-        props = UserDataBuilder()
+        props = UserDataBuilder({})
         sut = new UserEntity(props)
     })
 
     it('Constructor method', () =>{
+        expect(UserEntity.validate).toHaveBeenCalled()
         expect(sut.props.name).toEqual(props.name)
         expect(sut.props.email).toEqual(props.email)
         expect(sut.props.password).toEqual(props.password)
-        expect(sut.props.CreateAt).toBeInstanceOf(Date)
+        expect(sut.props.createdAt).toBeInstanceOf(Date)
     }) 
 
     it('Getter of name field', () =>{
@@ -45,18 +46,20 @@ describe('UserEntity Unit Test', () =>{
         expect(sut.props.password).toEqual('new password')
     })
 
-    it('Getter of CreateAt field', () =>{
-        expect(sut.props.CreateAt).toBeDefined()
-        expect(sut.props.CreateAt).toBeInstanceOf(Date)
+    it('Getter of createdAt field', () =>{
+        expect(sut.props.createdAt).toBeDefined()
+        expect(sut.props.createdAt).toBeInstanceOf(Date)
     })
 
     it('Should updatea a user - name', () => {
         sut.update('new name')
+        expect(UserEntity.validate).toHaveBeenCalled()
         expect(sut.props.name).toEqual('new name')
     })
 
     it('Should updatea a user - password', () => {
         sut.update('new password')
+        expect(UserEntity.validate).toHaveBeenCalled()
         expect(sut.props.password).toEqual('new password')
     })
 
