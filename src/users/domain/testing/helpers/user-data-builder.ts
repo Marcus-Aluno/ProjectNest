@@ -1,5 +1,6 @@
-import { faker } from "@faker-js/faker";
 import { UserProps } from "../../entities/user.entity";
+import { faker } from "@faker-js/faker";
+
 
 export function UserDataBuilder(p0: {}): UserProps {
         return{

@@ -21,7 +21,7 @@ describe('UserValidator unit tests', () => {
         expect(isValid).toBeTruthy()
         expect(sut.validatedData).toStrictEqual(new UserRules(props))
     })
-})
+
 
     describe('Name field', () => {
         it('Name field is null - error', () => {
@@ -101,8 +101,8 @@ describe('email field', () => {
         })
         expect(isValid).toBeFalsy()
         expect(sut.errors['email']).toStrictEqual([
-            'email must be a string',
             'email must be an email',
+            'email must be a string',
             'email must be shorter than or equal to 255 characters'
         ])
     })
@@ -114,8 +114,8 @@ describe('email field', () => {
         })
         expect(isValid).toBeFalsy()
         expect(sut.errors['email']).toStrictEqual([
-            'email must be shorter than or equal to 255 characters',
-            'email must be an email'
+            'email must be an email',
+            'email must be shorter than or equal to 255 characters'
         ])
     })
 })
@@ -132,5 +132,5 @@ describe('CreatedAt field',() => {
     })
 
 })
-
+})
 
